@@ -1,0 +1,27 @@
+Plan for distribution: 
+Deployment on the Cloud: 
+To prepare for deployment, a way of making software available to the public, we would first make sure that the application is fully functional and tested locally. We would make sure all necessary HTML templates, static files, and Flask routes are in place. We then would likely proceed with containerization to make the deployment of the app more consistent and portable. We have some previous experience working with containers in other computer security classes, so we are familiar with the process. Containerization is a method of packaging an application and its dependencies together into a standardized unit, called a container. The Docker tool would allow us to create, deploy, and run containers across different environments. We would create a Docker image that contains the Flask application along with Python, Flask, and any other dependencies it needs to run. The Dockerfile is a text document for building a Docker image. The Dockerfile will specify a base image and how to run the application, copy the application code into the image, and install dependencies.  This allows us to package the Flask application into a self-contained, portable unit that can be deployed on any system that supports Docker. 
+Once the application is contained, we then would set up the infrastructure on the cloud provider, Azure. Like containers, we have previous experience with using Azure in other computer security classes. New users receive a credit for 30 days which would be enough for our timeline. To use this, we would create a new Azure App Service to host the app using Azure portal. We then would set up deployment credentials via Git and add Azure App Service as a remote Git repository. Once deployment is successful, Azure will provide a URL for the application to run on. Then we would monitor and track the performance of the application and back up the database regularly to protect the data. 
+
+Other ways to distribute the application: 
+Database Sharding: 
+Data sharding is used to horizontally partition data across multiple database servers, also known as shards. Each shard contains a subset of the overall dataset, and together they form a distributed database system. This improves performance and scalability by distributing the workload of read and write operations across multiple servers. 
+	Partitioning Data: the dataset is divided into smaller subsets, such as by userID, geographic location, preferences, or another key attribute. Each subset of data is assigned to a separate shard. 
+  Distributed Architecture: Each shard is hosted on a separate database server or node in the network. This distributed architecture allows for parallel processing of database queries across multiple       
+  servers. 
+  Load Distribution: By distributing data across multiple shards, the workload of read and write operations is spread out, reducing the load on individual database servers. This helps improve performance   
+  and scalability. 
+  Query Rotating: When a query is issued to the database, a routing mechanism determines which shard contains the relevant data based on the query criteria. The query is then routed to the appropriate shard   for processing. 
+  Scalability: Database sharding enables horizontal scalability, allowing you to add more shards and database servers as the application grows. This allows scaling of the database system by adding more   
+  hardware resources rather than relying solely on vertical scaling (upgrading individual servers).
+  Fault Tolerance: Database sharding can also improve fault tolerance and availability. If one shard or database server fails, the remaining shard can continue to serve queries, reducing the impact of   
+  failures on the overall system. 
+
+User Profile Caching: 
+Each user has a profile that contains information such as their username, email address, preferences, settings, or any other relevant data specific to that user. As the user base grows, so will the number of user profiles stored in the database. Every time a user searches for roommates, the app needs to retrieve relevant profiles from the database. This can slow down search results and impact app performance. 
+	Caching: involves storing frequently accessed data temporarily in a faster-access storage system called a cache. This helps reduce the time it takes to retrieve the data by avoiding the need to fetch it   
+  from the primary data storage every time it’s requested. 
+  Distributed Cache System: A distributed cache system is a network of interconnected cache servers that work together to store and retrieve cached data. This setup improves performance and reliability by   
+  spreading load across multiple servers and providing fault tolerance. 
+  Reducing Load on the Main Database: By caching frequently accessed user profiles in a distributed cache system like Memcached or Redis, you can serve this information directly from the cache instead of   
+  querying the main database every time. This reduces the number of database queries and alleviates the load on the database servers, leading to improved performance and scalability of the application.
