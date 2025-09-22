@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Profile</title>
+    <style>
+        :root {
+            --white: white;
+            --black: black;
+            --e12c2c: #e12c2c;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 940px;
+            margin: 0 auto;
+            padding: 0 20px;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .heading {
+            color: var(--e12c2c);
+            font-size: 40px;
+            font-family: Verdana, Geneva, sans-serif;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .submit-button {
+            margin-top: 20px;
+            width: 100%; 
+            display: flex;
+            justify-content: center;
+        }
+
+        .submit-button button {
+            background-color: var(--e12c2c);
+            color: var(--white);
+            padding: 10px 20px;
+            font-family: Varela Round, sans-serif;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border: none;
+            outline: none;
+            width: 50%;
+        }
+
+        section.profile-creation form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        section.profile-creation input[type="text"],
+        section.profile-creation input[type="number"],
+        section.profile-creation input[type="file"] {
+            width: 80%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid var(--black);
+        }
+
+        footer {
+            margin-top: 50px;
+        }
+
+        footer p {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Profile Creation Form -->
+    <section class="profile-creation">
+        <div class="container">
+            <h2 class="heading">Create Your Profile</h2>
+            <form action="/create_profile" method="post" enctype="multipart/form-data">
+                <input type="text" name="fullname" placeholder="Full Name" required>
+                <input type="number" name="age" placeholder="Age" required>
+                <input type="text" name="location" placeholder="Location" required>
+                <input type="text" name="gender" placeholder="Gender" required>
+                <input type="text" name="major" placeholder="Major" required>
+                <input type="text" name="political_party" placeholder="Political Party" required>
+                <input type="text" name="about_me" placeholder="About Me" required>
+                <input type="file" name="profile_picture" accept="image/*" required>
+                
+                <div class="submit-button">
+                    <button type="submit">Create Profile</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 RoomieRoundup. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

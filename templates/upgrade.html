@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upgrade Account</title>
+    <style>
+        :root {
+            --white: white;
+            --black: black;
+            --e12c2c: #e12c2c;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 940px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .back-button {
+            background-color: var(--e12c2c);
+            color: var(--white);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+            margin-left: 20px;
+        }
+
+        .back-button:hover {
+            background-color: #c51c1c;
+        }
+
+        .upgrade {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .upgrade h2 {
+            color: var(--e12c2c);
+        }
+
+        .upgrade p {
+            margin: 10px 0;
+        }
+
+        .upgrade p.intro {
+            color: var(--black);
+            font-weight: normal;
+            margin-bottom: 10px;
+        }
+
+        .upgrade p.feature {
+            color: var(--black);
+            font-weight: normal;
+            list-style-type: none;
+        }
+
+        footer {
+            margin-top: 50px;
+            color: var(--black);
+            text-align: center;
+            padding: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Back Button -->
+    <button class="back-button" onclick="window.location.href='/settings'">Back</button>
+
+    <!-- Upgrade Account Section -->
+    <section class="upgrade">
+        <div class="container">
+            <h2>Upgrade Your Account</h2>
+            <p class="intro">Unlock premium features to enhance your roommate matching experience.</p>
+            <p class="feature">Premium membership includes:</p>
+            <p class="feature" style="color: red; font-weight: bold;">Unlimited matching with potential roommates</p>
+            <p class="feature" style="color: red; font-weight: bold;">Unlimited messaging to communicate with matches</p>
+            <form action="{{ url_for('upgrade') }}" method="post">
+                <label for="premium">Choose Subscription:</label>
+                <select id="premium" name="premium">
+                    <option value="monthly">Monthly Subscription ($9.99/month)</option>
+                    <option value="yearly">Annual Subscription ($99.99/year)</option>
+                </select>
+                <input type="submit" value="Upgrade Now">
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 RoomieRoundup. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

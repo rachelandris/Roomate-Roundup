@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        /* Navigation Bar Styles */
+        .navbar-logo-right {
+            background-color: #e12c2c; 
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .nav-menu-wrapper ul {
+            list-style-type: none;
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-menu-wrapper ul li {
+            margin-right: 10px;
+        }
+        .nav-menu-wrapper ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .nav-menu-wrapper ul li a:hover {
+            background-color: #b20000;
+        }
+        .container {
+            text-align: center;
+            margin-top: 100px; 
+        
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="navbar-logo-right">
+            <nav role="navigation" class="nav-menu-wrapper">
+            <ul>
+                <li><a href="{{ url_for('main') }}">Roomies</a></li>
+                <li><a href="{{ url_for('matches') }}">My Matches</a></li>
+                <li><a href="{{ url_for('messages') }}">Messages</a></li>
+                <li><a href="{{ url_for('profile') }}">My Profile</a></li>
+                <li><a href="{{ url_for('settings') }}">Settings</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Profile Information Section -->
+    <body>
+       
+        <div class="container"> 
+            <h1>My Profile</h1>
+            {% if user.profile_picture %}
+            <img src="{{ url_for('static', filename='images/' + user.profile_picture) }}" alt="Profile Picture" style="width: 220px; height: auto;">
+            {% else %}
+                <p>No profile picture</p>
+            {% endif %}
+            
+            <p>Name: {{ user.fullname }}</p>
+            <p>Age: {{ user.age }}</p>
+            <p>Location: {{ user.location }}</p>
+            <p>Gender: {{ user.gender }}</p>
+            <p>Major: {{ user.major }}</p>
+            <p>Political Party: {{ user.political_party }}</p>
+            <p>About Me: {{ user.about_me }}</p>
+            <p>User Role: {{ user.role }}</p>
+        </div>
+    </body>
+
+    
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 RoomieRoundup. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Retrieve location from localStorage 
+        const savedLocation = localStorage.getItem('userLocation');
+        if (savedLocation) {
+            document.getElementById('user-location').textContent = savedLocation;
+        }
+    </script>
+
+</body>
+</html>
+
+
+
+

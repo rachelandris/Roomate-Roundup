@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preferences</title>
+    <style>
+        :root {
+            --white: white;
+            --black: black;
+            --e12c2c: #e12c2c;
+        }
+
+        .w-layout-blockcontainer {
+            max-width: 940px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        @media screen and (max-width: 991px) {
+            .w-layout-blockcontainer {
+                max-width: 728px;
+            }
+        }
+
+        @media screen and (max-width: 767px) {
+            .w-layout-blockcontainer {
+                max-width: none;
+            }
+        }
+
+        .container {
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            position: relative; 
+        }
+
+        .heading {
+            text-align: center;
+            color: var(--e12c2c);
+            font-size: 40px;
+            font-family: Verdana, Geneva, sans-serif;
+            margin-top: 40px;
+        }
+
+        .preferences-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form-group {
+            width: 300px; 
+            margin-bottom: 10px;
+        }
+
+        label {
+            color: var(--e12c2c);
+            margin-bottom: 5px;
+            font-family: Verdana, Geneva, sans-serif;
+            display: block;
+        }
+
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--black);
+        }
+
+        button[type="submit"] {
+            color: var(--white);
+            background-color: var(--e12c2c);
+            padding: 10px 20px;
+            font-family: Varela Round, sans-serif;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+            border: none;
+            outline: none;
+        }
+
+        footer {
+            margin-top: 50px;
+        }
+
+        footer p {
+            text-align: center;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 16px; 
+            background-color: var(--e12c2c); 
+            color: var(--white); 
+            border: none; 
+            padding: 10px 20px; 
+            cursor: pointer;
+        }
+
+        .preference-options {
+            display: flex; 
+        }
+
+        .preference-options input[type="radio"],
+        .preference-options label {
+            margin-right: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Back Button -->
+    <button class="back-button" onclick="goToSettings()">Back</button>
+    
+    <!-- Preferences Form -->
+    <section class="preferences">
+        <div class="container">
+            <h2 class="heading">Preferences</h2>
+            <form id="preferences-form" class="preferences-form">
+                <div class="form-group">
+                    <label for="radius">Max Distance:</label>
+                    <input type="number" id="radius" name="radius" value="30">
+                </div>
+                <div class="form-group">
+                    <label for="age-range-min">Minimum Age:</label>
+                    <input type="number" id="age-range-min" name="age-range-min" placeholder="Enter minimum age">
+                </div>
+                <div class="form-group">
+                    <label for="age-range-max">Maximum Age:</label>
+                    <input type="number" id="age-range-max" name="age-range-max" placeholder="Enter maximum age">
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender:</label>
+                    <select id="gender" name="gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Preference:</label>
+                    <div class="preference-options">
+                        <input type="radio" id="school" name="preference" value="school">
+                        <label for="school">In School</label>
+                        <input type="radio" id="outschool" name="preference" value="outschool">
+                        <label for="outschool">Out of school</label>
+                    </div>
+                </div>
+                <button type="submit">Save Preferences</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 RoomieRoundup. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function goToSettings() {
+            window.location.href = '/settings';
+        }
+    </script>
+</body>
+</html>

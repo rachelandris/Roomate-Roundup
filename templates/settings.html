@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        /* Navigation Bar Styles */
+        .navbar-logo-right {
+            background-color: #e12c2c; 
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .nav-menu-wrapper ul {
+            list-style-type: none;
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-menu-wrapper ul li {
+            margin-right: 10px;
+        }
+        .nav-menu-wrapper ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .nav-menu-wrapper ul li a:hover {
+            background-color: #b20000;
+        }
+        /* Settings Section Styles */
+        .settings {
+            padding: 20px;
+            padding-top: 100px;
+            text-align: center; 
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .option {
+            text-align: center;
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 10px;
+            cursor: pointer;
+            width: fit-content;
+            background-color: #e12c2c;
+        }
+        .option a {
+            text-decoration: none;
+            color: white; 
+            font-weight: bold;
+        }
+        .option:hover {
+            background-color: #b20000;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: auto; 
+            padding-top: 20px; 
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="navbar-logo-right">
+        <nav role="navigation" class="nav-menu-wrapper">
+            <ul>
+                <li><a href="{{ url_for('main') }}" class="roomies">Roomies</a></li>
+                <li><a href="{{ url_for('matches') }}" class="matches">My Matches</a></li>
+                <li><a href="{{ url_for('messages') }}" class="messages">Messages</a></li>
+                <li><a href="{{ url_for('profile') }}" class="profile">My Profile</a></li>
+                <li><a href="{{ url_for('settings') }}" class="settings">Settings</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Settings Section -->
+    <section class="settings">
+        <div class="container">
+            <h2>Settings</h2>
+            <div class="options">
+                <div class="option" onclick="navigateTo('/preferences')">
+                    <a href="#">Preferences</a>
+                </div>
+                <div class="option" onclick="navigateTo('/editprofile')">
+                    <a href="#">Edit Profile</a>
+                </div>
+                <div class="option" onclick="navigateTo('/upgrade')">
+                    <a href="#">Upgrade Account</a>
+                </div>
+                <div class="option" onclick="navigateTo('/delete')">
+                    <a href="#">Delete Account</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 RoomieRoundup. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function navigateTo(url) {
+            window.location.href = url;
+        }
+    </script>
+
+</body>
+</html>

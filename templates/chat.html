@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    }
+
+    .chat-container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .back-btn {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        color: #007bff;
+        margin-bottom: 20px;
+    }
+
+    .back-btn svg {
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+    }
+
+    #chatHeader {
+        margin-bottom: 20px;
+    }
+
+    #chatHistory {
+        overflow-y: auto;
+        max-height: 300px;
+    }
+
+    #messageInput {
+        width: calc(100% - 20px);
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    .message {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .message p {
+        padding: 10px;
+        border-radius: 10px;
+        display: inline-block;
+    }
+
+    .message.received {
+        text-align: left;
+    }
+
+    .message.received p {
+        background-color: #f0f0f0;
+    }
+
+    .message.sent {
+        text-align: right;
+    }
+
+    .message.sent p {
+        background-color: #007bff;
+        color: white;
+    }
+
+</style>
+<body>
+    <div class="chat-container">
+        <div class="back-btn">
+            <a href="messages.html">
+                <svg xmlns="http://www.w3.org/2000/svg" 
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+                class="feather feather-arrow-left">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                Back to Messages
+            </a>
+        </div>
+        <div class="profile-pic-container">
+            <img src="profile_pic.jpg" alt="Profile Picture" class="profile-pic">
+            <h1 id="chatHeader">Chat with <span id="sender"></span></h1>
+        </div>
+        <div id="chatHistory" class="chat-history"></div>
+        <textarea id="messageInput" placeholder="Type your message"></textarea>
+        <br>
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        // Retrieve sender and message
+        const urlParams = new URLSearchParams(window.location.search);
+        const sender = urlParams.get('sender');
+        const message = urlParams.get('message');
+
+        // Display sender's name
+        document.getElementById('sender').innerText = sender;
+
+        // Display initial message
+        const chatHistory = document.getElementById('chatHistory');
+        chatHistory.innerHTML = `<div class="message received"><p>${sender}: ${message}</p></div>`;
+
+        // send message (testing)
+        function sendMessage() {
+            const messageInput = document.getElementById("messageInput").value;
+            chatHistory.innerHTML += `<div class="message sent"><p>You: ${messageInput}</p></div>`;
+            document.getElementById("messageInput").value = "";
+        }
+    </script>
+</body>
+</html>

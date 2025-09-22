@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages & Chat</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .navbar-logo-right {
+            background-color: #e12c2c; 
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .nav-menu-wrapper ul {
+            list-style-type: none;
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-menu-wrapper ul li {
+            margin-right: 10px;
+        }
+
+        .nav-menu-wrapper ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-menu-wrapper ul li a:hover {
+            background-color: #b20000;
+        }
+        .messages{
+            margin-top: 100px; 
+        }
+
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+
+        .message-header {
+            padding: 10px;
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+
+        .message-item {
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Chat Section Styles */
+        .chat-container {
+            display: none;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 100px; 
+        }
+
+        .back-btn {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .back-btn svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+        }
+
+        #chatHeader {
+            margin-bottom: 20px;
+        }
+
+        #chatHistory {
+            overflow-y: auto;
+            max-height: 300px;
+        }
+
+        #messageInput {
+            width: calc(100% - 20px);
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .message {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .message p {
+            padding: 10px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .message.received {
+            text-align: left;
+        }
+
+        .message.received p {
+            background-color: #f0f0f0;
+        }
+
+        .message.sent {
+            text-align: right;
+        }
+
+        .message.sent p {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="navbar-logo-right">
+            <nav role="navigation" class="nav-menu-wrapper">
+            
+            <ul>
+                <li><a href="{{ url_for('main') }}">Roomies</a></li>
+                <li><a href="{{ url_for('matches') }}">My Matches</a></li>
+                <li><a href="{{ url_for('messages') }}">Messages</a></li>
+                <li><a href="{{ url_for('profile') }}">My Profile</a></li>
+                <li><a href="{{ url_for('settings') }}">Settings</a></li>
+            </ul>
+        </div>
+        
+    </nav>
+
+    <!-- Messages Section -->
+    <section class="messages" id="messages-section">
+        <h2 style="text-align: center;">My Messages</h2>
+        <div id="messageList">
+            <!-- Message items will be inserted here by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Chat Section -->
+    <div class="chat-container" id="chat-container" style="display: none;">
+        <div class="back-btn" onclick="backToMessages()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Back to Messages
+        </div>
+        <h1><span id="chat-recipient"></span></h1>
+        <div id="chatHistory">
+            <!-- Chat messages will be inserted here -->
+        </div>
+        <textarea id="messageInput" placeholder="Type your message..."></textarea>
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+       window.onload = function() {
+            const currentMatchID = sessionStorage.getItem('currentMatchID');
+            if (currentMatchID) {
+                openChat(currentMatchID);
+            } else {
+                displayMessages();
+            }
+        };
+        function displayMessages() {
+            const messageList = document.getElementById("messageList");
+            if (messageList) {
+                messagesData.forEach((msg) => {
+                    const item = document.createElement("div");
+                    item.classList.add("message-item");
+                    item.onclick = () => {
+                        sessionStorage.setItem("currentMatchID", msg.sender); 
+                        openChat(msg.sender, msg.message);
+                    };
+
+                    const profilePic = document.createElement("img");
+                    profilePic.src = msg.profilePic;
+                    profilePic.alt = `Profile of ${msg.sender}`;
+                    profilePic.classList.add("profile-pic");
+
+                    const header = document.createElement("div");
+                    header.classList.add("message-header");
+                    header.innerText = `${msg.sender}`;
+
+                    item.appendChild(profilePic);
+                    item.appendChild(header);
+
+                    messageList.appendChild(item);
+                });
+            }
+        }
+
+        function openChat(sender, message) {
+            document.getElementById("messages-section").style.display = "none";
+            document.getElementById("chat-container").style.display = "block";
+
+            const chatHistory = document.getElementById("chatHistory");
+            chatHistory.innerHTML = `<div class="message received"><p>${sender}: ${message}</p></div>`;
+            document.getElementById("chat-recipient").innerText = sender;
+        }
+
+        function sendMessage() {
+            const chatHistory = document.getElementById("chatHistory");
+            const messageInput = document.getElementById("messageInput").value;
+
+            if (messageInput) {
+                chatHistory.innerHTML += `<div class="message sent"><p>You: ${messageInput}</p></div>`;
+                document.getElementById("messageInput").value = "";
+            }
+        }
+
+        function backToMessages() {
+            sessionStorage.removeItem("currentMatchID");
+            document.getElementById("chat-container").style.display = "none";
+            document.getElementById("messages-section").style.display = "block";
+        }
+    </script>
+
+</body>
+</html>
+

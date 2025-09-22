@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matches</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+
+    body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        /* Navigation Bar Styles */
+        .navbar-logo-right {
+            background-color: #e12c2c;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .nav-menu-wrapper ul {
+            list-style-type: none;
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-menu-wrapper ul li {
+            margin-right: 10px;
+        }
+        .nav-menu-wrapper ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .nav-menu-wrapper ul li a:hover {
+            background-color: #b20000;
+        }
+        /* Add custom CSS for the matches grid */
+        .matches-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        /* Style for match card */
+        .match-card {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        /* Style for match photo */
+        .match-photo img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Style for match details */
+        .match-details {
+            margin-top: 10px;
+        }
+
+        /* Style for match actions */
+        .match-actions {
+            margin-top: 10px;
+        }
+        .container {
+            text-align: center;
+            margin-top: 100px;
+        }
+
+
+
+        /* Responsive styling */
+        @media screen and (max-width: 768px) {
+            .matches-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .matches-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="navbar-logo-right">
+            <nav role="navigation" class="nav-menu-wrapper">
+            <ul>
+                <li><a href="{{ url_for('main') }}">Roomies</a></li>
+                <li><a href="{{ url_for('matches') }}">My Matches</a></li>
+                <li><a href="{{ url_for('messages') }}">Messages</a></li>
+                <li><a href="{{ url_for('profile') }}">My Profile</a></li>
+                <li><a href="{{ url_for('settings') }}">Settings</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Matches Section -->
+    <section class="matches">
+        <div class="container">
+            <h2>My Matches</h2>
+            <div class="matches-grid" id="matchesGrid">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 RoomieRoundup. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for generating matches -->
+    <script>
+        function handleMessageButtonClick(matchID) {
+        // Save the selected match ID in the session or local storage
+        sessionStorage.setItem('currentMatchID', matchID);
+        // Redirect to messages page
+        window.location.href = "{{ url_for('messages') }}";
+    }
+
+
+        // Generate matches using data from the server
+        const matchesData = {{ matches | safe }};
+
+        function generateMatchCards(matches) {
+        const matchesGrid = document.getElementById("matchesGrid");
+        matches.forEach(match => {
+            const matchCard = document.createElement("div");
+            matchCard.classList.add("match-card");
+
+            // Use template literals and expressions to insert data
+            matchCard.innerHTML = `
+                <div class="match-photo">
+                    <img src="${match.photo}" alt="Match Photo">
+                </div>
+                <div class="match-details">
+                    <h3>${match.name}</h3>
+                    <p>Age: ${match.age}</p>
+                    <p>Location: ${match.location}</p>
+                </div>
+                <div class="match-actions">
+                    <button onclick="handleMessageButtonClick('${match.userID}')" class="message-btn">Message</button>
+                </div>
+            `;
+
+            matchesGrid.appendChild(matchCard);
+        });
+    }
+
+    // Call the function to generate the match cards on page load
+    generateMatchCards(matchesData);
+</script>

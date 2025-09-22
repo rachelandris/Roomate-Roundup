@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Account</title>
+    <style>
+        :root {
+            --white: white;
+            --black: black;
+            --e12c2c: #e12c2c;
+        }
+
+        .container {
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            margin-top: 50px;
+        }
+
+        .heading {
+            text-align: center;
+            color: var(--e12c2c);
+            font-size: 40px;
+            font-family: Verdana, Geneva, sans-serif;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            color: var(--white);
+            background-color: var(--e12c2c);
+            padding: 10px 20px;
+            font-family: Varela Round, sans-serif;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+            border: none;
+            outline: none;
+        }
+
+        .back-button {
+            background-color: var(--e12c2c);
+            color: var(--white);
+            padding: 10px 20px;
+            font-family: Varela Round, sans-serif;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+            border: none;
+            outline: none;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .back-button:hover {
+            background-color: #c51c1c;
+        }
+
+        footer {
+            margin-top: 50px;
+        }
+
+        footer p {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Back Button -->
+    <button class="back-button" onclick="window.location.href='/settings'">Back</button>
+
+    <section class="delete">
+        <div class="container">
+            <h2 class="heading">Delete Account</h2>
+            <p>Are you sure you want to delete your account?</p>
+            <form id="deleteForm" action="{{ url_for('delete') }}" method="post">
+                <input type="submit" value="Delete Account" onclick="return confirmDelete();" class="button">
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 RoomieRoundup. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function confirmDelete() {
+            if (confirm("Are you sure you want to delete your account?")) {
+                window.location.href = "/"; 
+                return true; 
+            } else {
+                return false; 
+            }
+        }
+    </script>
+    
+
+</body>
+</html>

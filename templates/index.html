@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoomieRoundup</title>
+    <style>
+        /* CSS styles */
+        :root {
+            --white: white;
+            --black: black;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh; 
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            margin: 75px 50px auto; 
+}
+
+        .image {
+            margin: 100px auto 30px; 
+            padding: 0; 
+        }
+
+        .text-block {
+            margin: -50px auto 20px; 
+            padding: 0; 
+        }
+
+        .button {
+            color: #fff;
+            background-color: #e12c2c;
+            padding: 10px 20px;
+            font-family: Varela Round, sans-serif;
+            text-decoration: none;
+            margin: 10px 5px; 
+        }
+
+        .button-2 {
+            color: #fff; 
+            background-color: #e12c2c;
+            padding: 10px 20px;
+            font-family: Varela Round, sans-serif;
+            text-decoration: none;
+            margin: 10px 5px; 
+        }
+
+        footer {
+            text-align: center;
+            margin-top: auto; 
+            padding-top: 20px; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- New design sections -->
+        <img src="{{ url_for('static', filename='images/Roomie-Roundup.svg') }}" alt="Roomie Roundup">
+        <div id="text" class="text-block">Sign up and find your perfect roommate today!</div>
+        <div>
+            <a id="LoginButton" href="/login" class="button w-button">Login</a> <!-- Link to login page -->
+            <a id="SignUpButton" href="/signup" class="button-2 w-button">Sign Up</a> <!-- Link to signup page -->
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 RoomieRoundup. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
